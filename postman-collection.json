@@ -1,0 +1,104 @@
+{
+  "info": {
+    "name": "SamaPHARMACIE API",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/auth/register",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"jean@example.com\",\n  \"password\": \"password123\",\n  \"firstName\": \"Jean\",\n  \"lastName\": \"Dupont\",\n  \"role\": \"patient\",\n  \"phone\": \"+33612345678\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/auth/login",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"jean@example.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Me",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/auth/me",
+            "header": [{"key": "Authorization", "value": "Bearer {{token}}"}]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pharmacies",
+      "item": [
+        {
+          "name": "Get All Pharmacies",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/pharmacies?page=1&limit=20"
+          }
+        },
+        {
+          "name": "Get Pharmacy by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/pharmacies/{{pharmacy_id}}"
+          }
+        },
+        {
+          "name": "Get Pharmacy Stock",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/pharmacies/{{pharmacy_id}}/stock"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reservations",
+      "item": [
+        {
+          "name": "Create Reservation",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/reservations",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pharmacyId\": \"pharmacy-uuid\",\n  \"medicines\": [{\"medicineId\": \"medicine-uuid\", \"quantity\": 1}],\n  \"pickupDate\": \"2026-07-27\",\n  \"pickupTime\": \"14:30\",\n  \"notes\": \"Optional notes\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get My Reservations",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/reservations",
+            "header": [{"key": "Authorization", "value": "Bearer {{token}}"}]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {"key": "base_url", "value": "http://localhost:5000"},
+    {"key": "token", "value": "your_jwt_token_here"}
+  ]
+}
